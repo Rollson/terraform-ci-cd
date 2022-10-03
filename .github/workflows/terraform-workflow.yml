@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 env:
   TF_LOG: INFO
+  WORKING_DIRECTORY: "./infra"
 
 jobs:
   terraform:
@@ -15,7 +16,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./infra
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
     steps:
     - name: Checkout the repository
@@ -67,7 +68,6 @@ jobs:
       # continue-on-error: true
 
     - name: Add Terraform Plan Comment
-      id: comment
       uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
@@ -75,7 +75,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### Terraform Format and Style 🖌\`${{ steps.format.outcome }}\`
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
