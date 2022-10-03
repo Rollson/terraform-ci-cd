@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   TF_LOG: INFO
-  WORKING_DIRECTORY: "./infra"
+  WORKING_DIRECTORY: infra
 
 jobs:
   terraform:
@@ -68,7 +68,7 @@ jobs:
       # continue-on-error: true
 
     - name: Add Terraform Plan Comment
-      uses: actions/github-script@v6
+      uses: actions/github-script@v6.3.0
       if: github.event_name == 'pull_request'
       env:
         PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
