@@ -2,9 +2,9 @@
 # Azure Provider source and version being used
 terraform {
 
-    # backend "azurerm" {
-    #     key                  = "terraform.tfstate"
-    # }
+    backend "azurerm" {
+        key = "terraform.tfstate"
+    }
 
   required_providers {
     azurerm = {
