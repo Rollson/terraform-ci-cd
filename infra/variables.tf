@@ -4,7 +4,7 @@
 #   description = "VM os"
 # }
 
-variable "name" {
+variable "rg_name" {
   type        = string
   description = "rg name"
 }
