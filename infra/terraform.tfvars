@@ -1,2 +1,2 @@
 # win_os_image = "2019-Datacenter"
-name = "example-resources"
+rg_name = "rg-example"
