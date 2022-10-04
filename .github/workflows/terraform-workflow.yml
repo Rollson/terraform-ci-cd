@@ -33,7 +33,7 @@ jobs:
         inlineScript: |       
           cd $WORKING_DIRECTORY
           cat <<EOT > terraform.tfvars
-            rg_name=${{ secrets.VM_RESOURCE_GROUP }} \
+            rg_name=${{ secrets.VM_RESOURCE_GROUP }} \n
             vm_pwd=${{ secrets.VM_PASSWORD }}
           EOT
           
