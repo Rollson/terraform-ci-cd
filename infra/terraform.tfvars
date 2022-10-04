@@ -1,5 +1,5 @@
 rg_location="West Europe"
-rg_name = "rg-test-tf"
+rg_name = "rg-terraform"
 vm_name="example-vm"
 vnet_name="example-vnet"
 subnet_name="internal-sunet"
