@@ -80,7 +80,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       if: github.event_name == 'pull_request'
       run: |
-        cd $WORKING_DIRECTORY
+        # cd $WORKING_DIRECTORY
         terraform plan -no-color -var-file=terraform.tfvars
       # continue-on-error: true
 
