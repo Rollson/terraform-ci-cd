@@ -77,7 +77,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         VM_PASSWORD: ${{ secrets.VM_PASSWORD }}
       if: github.event_name == 'pull_request'
-      run: terraform plan -no-color -var 'vm_pwd=$VM_PASSWORD'
+      run: terraform plan -no-color -var=vm_pwd='$VM_PASSWORD'
       # continue-on-error: true
 
     - name: Add Terraform Plan Comment
@@ -128,4 +128,4 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         VM_PASSWORD: ${{ secrets.VM_PASSWORD }}
       run: |
-        terraform apply -auto-approve -var 'vm_pwd=$VM_PASSWORD'
+        terraform apply -auto-approve -var=vm_pwd='$VM_PASSWORD'
