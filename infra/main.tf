@@ -1,37 +1,31 @@
 resource "azurerm_resource_group" "example" {
   name     = var.rg_name
-  location = "westeurope"
+  location = var.rg_location
 }
 
-# module "linuxservers" {
-#   source              = "Azure/compute/azurerm"
-#   resource_group_name = azurerm_resource_group.example.rg_name
-#   vm_os_simple        = "UbuntuServer"
-#   public_ip_dns       = ["linsimplevmips"] // change to a unique name per datacenter region
-#   vnet_subnet_id      = module.network.vnet_subnets[0]
+module vnet {
+  source = "./modules/virtualnet"
 
-#   depends_on = [azurerm_resource_group.example]
-# }
-
-module "windowsservers" {
-  source              = "Azure/compute/azurerm"
-  resource_group_name = azurerm_resource_group.example.name
-  is_windows_image    = true
-  vm_hostname         = "mywinvm" // line can be removed if only one VM module per resource group
-  admin_password      = "ComplxP@ssw0rd!"
-  vm_os_simple        = "WindowsServer"
-  public_ip_dns       = ["winsimplevmips"] // change to a unique name per datacenter region
-  vnet_subnet_id      = module.network.vnet_subnets[0]
-
-  depends_on = [azurerm_resource_group.example]
+  vnet_name    = var.vnet_name
+  rg_name      = azurerm_resource_group.example.name
+  rg_location  = azurerm_resource_group.example.location
+  subnet_name  = var.subnet_name
 }
 
-module "network" {
-  source              = "Azure/network/azurerm"
-  resource_group_name = azurerm_resource_group.example.name
-  subnet_prefixes     = ["10.0.1.0/24"]
-  subnet_names        = ["subnet1"]
+module network_interface {
+  source = "./modules/networkInterface"
 
-  depends_on = [azurerm_resource_group.example]
+  nic_name    = var.nic_name
+  rg_name      = azurerm_resource_group.example.name
+  rg_location  = azurerm_resource_group.example.location
+  subnet_id = module.vnet.subnet_id
 }
 
+module vm {
+  source = "./modules/vm"
+
+  vm_name    = var.vm_name
+  rg_name      = azurerm_resource_group.example.name
+  rg_location  = azurerm_resource_group.example.location
+  network_interface_ids = [module.network_interface.nic_id]
+}
