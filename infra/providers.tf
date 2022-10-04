@@ -3,7 +3,6 @@
 terraform {
 
     backend "azurerm" {
-        key = "terraform.tfstate"
     }
 
   required_providers {
