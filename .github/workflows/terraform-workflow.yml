@@ -28,7 +28,9 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create terraform.tfvars
-      run: |      
+      uses: Azure/cli@v1.0.6
+      with:
+        inlineScript: |       
           cd $WORKING_DIRECTORY
           cat <<EOT > terraform.tfvars
             rg_name="${{ secrets.VM_RESOURCE_GROUP }}"
