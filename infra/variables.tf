@@ -8,8 +8,3 @@ variable "rg_name" {
   type        = string
   description = "rg name"
 }
-
-variable "vm_pwd" {
-  type        = string
-  description = "VM password"
-}
