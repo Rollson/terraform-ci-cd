@@ -27,24 +27,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # - name: Create Terraform backend state storage
-    #   uses: Azure/cli@v1.0.6
-    #   with:
-    #     inlineScript: |      
-    #       cd $WORKING_DIRECTORY
-    #       cat <<EOT > backend.tf
-    #       terraform {
-    #         backend "azurerm" {
-    #           resource_group_name   = "${{ secrets.TFSTATE_STORAGE_ACCOUNT_RESOURCE_GROUP }}"
-    #           storage_account_name  = "${{ secrets.TFSTATE_STORAGE_ACCOUNT_NAME }}"
-    #           container_name        = "${{ secrets.TFSTATE_STORAGE_ACCOUNT_CONTAINER_NAME }}"
-    #           key                   = "${{ secrets.TFSTATE_BLOB_NAME }}"
-    #         }
-    #       }
-    #       EOT
-          
-    #       cat backend.tf
-
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
       with:
@@ -85,7 +67,6 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       if: github.event_name == 'pull_request'
       run: terraform plan -no-color
-      # continue-on-error: true
 
     - name: Add Terraform Plan Comment
       uses: actions/github-script@v6.3.0

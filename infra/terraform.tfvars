@@ -1,2 +1,6 @@
-# win_os_image = "2019-Datacenter"
-rg_name = "rg-example"
+rg_location="West Europe"
+rg_name = "rg-test-tf"
+vm_name="example-vm"
+vnet_name="example-vnet"
+subnet_name="internal-sunet"
+nic_name="example-nic"

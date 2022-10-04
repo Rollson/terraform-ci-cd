@@ -13,17 +13,7 @@ variable vm_name {
   description = "VM Name"
 }
 
-variable vnet_name {
-  type        = string
-  description = "Vnet name"
-}
-
-variable subnet_name {
-  type        = string
-  description = "Subnet name"
-}
-
-variable nic_name {
-  type        = string
-  description = "network interface name"
+variable network_interface_ids {
+  type = list(string)
+  description = "network interface ids"
 }

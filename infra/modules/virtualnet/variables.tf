@@ -8,11 +8,6 @@ variable rg_location {
   description = "resource group location"
 }
 
-variable vm_name {
-  type        = string
-  description = "VM Name"
-}
-
 variable vnet_name {
   type        = string
   description = "Vnet name"
@@ -21,9 +16,4 @@ variable vnet_name {
 variable subnet_name {
   type        = string
   description = "Subnet name"
-}
-
-variable nic_name {
-  type        = string
-  description = "network interface name"
 }
