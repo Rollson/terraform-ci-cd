@@ -27,6 +27,16 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Create terraform.tfvars
+      run: |      
+          cd $WORKING_DIRECTORY
+          cat <<EOT > terraform.tfvars
+            rg_name="${{ secrets.VM_RESOURCE_GROUP }}"
+            vm_pwd="${{ secrets.VM_PASSWORD }}"
+          EOT
+          
+          cat terraform.tfvars
+
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v2
       with:
@@ -66,7 +76,7 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       if: github.event_name == 'pull_request'
-      run: terraform plan -no-color
+      run: terraform plan -no-color -var-file=terraform.tfvars
       # continue-on-error: true
 
     - name: Add Terraform Plan Comment
@@ -116,4 +126,4 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       run: |
-        terraform apply -auto-approve
+        terraform apply -auto-approve -var-file=terraform.tfvars
