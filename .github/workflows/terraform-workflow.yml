@@ -1,26 +1,13 @@
 name: 'Create Infra with Terraform'
 
-on: 
-  push:
-    branches: [main, develop, 'feature/*']
-
-  pull_request:
-    branches:  [ main ]
-    
-  workflow_dispatch:
-    inputs:
-      TFAction:
-        description: "Terraform Action- Apply or Destroy"     
-        required: true
-        default: "apply" 
+on: [push, pull_request]
 
 env:
   TF_LOG: INFO
   WORKING_DIRECTORY: infra
 
 jobs:
-  terraform-apply:
-    if: ${{ inputs.TFAction == 'apply'}}
+  terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
@@ -129,23 +116,3 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       run: |
         terraform apply -auto-approve
-
-  terraform-destroy:
-    if: ${{ inputs.TFAction == 'destroy'}}
-    name: 'Terraform destroy'
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-
-    steps:
-    - name: Terraform destroy
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      run: |
-        terraform destroy -auto-approve
