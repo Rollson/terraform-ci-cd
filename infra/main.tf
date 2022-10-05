@@ -27,5 +27,7 @@ module vm {
   vm_name    = var.vm_name
   rg_name      = azurerm_resource_group.example.name
   rg_location  = azurerm_resource_group.example.location
+  admin_password      = var.admin_password
+  admin_username = var.admin_username
   network_interface_ids = [module.network_interface.nic_id]
 }

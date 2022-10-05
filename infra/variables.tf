@@ -27,3 +27,13 @@ variable nic_name {
   type        = string
   description = "network interface name"
 }
+
+variable admin_password {
+  type        = string
+  description = "vm password"
+}
+
+variable admin_username {
+  type        = string
+  description = "vm password"
+}
