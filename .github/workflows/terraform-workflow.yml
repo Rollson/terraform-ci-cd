@@ -1,13 +1,6 @@
 name: 'Create Infra with Terraform'
 
-on: 
-  push:
-    branches: [main, develop, 'feature/*']
-
-  pull_request:
-    branches:  [ main ]
-    
-  workflow_dispatch:
+on: [push, pull_request]
 
 env:
   TF_LOG: INFO
