@@ -1,6 +1,6 @@
 rg_location="West Europe"
 rg_name = "rg-terraform"
-vm_name="example-vm"
+vm_name="example-virtm"
 vnet_name="example-vnet"
 subnet_name="internal-subnet"
 nic_name="example-nic"
